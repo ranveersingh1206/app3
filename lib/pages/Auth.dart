@@ -17,12 +17,19 @@ class _AuthPageState extends State<AuthPage> {
 
   void onButtonClick() {
     final String password = passwordController.text;
+    final String name = nameController.text;
 
     setState(() {
       if (password.length <= 6) {
         haserror = true;
       } else {
         haserror = false;
+      }
+
+      if (name.length > 2) {
+        haserror = false;
+      } else {
+        haserror = true;
       }
     });
   }
