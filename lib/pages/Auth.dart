@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   AuthPage({super.key});
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
 
+  int clicked = 0;
+  bool haserror = false;
+
   void onButtonClick() {
-    final String name = nameController.text;
-    print(name);
     final String password = passwordController.text;
-    print(password);
+
+    setState(() {
+      if (password.length <= 6) {
+        haserror = true;
+      } else {
+        haserror = false;
+      }
+    });
   }
 
   @override
@@ -56,6 +71,10 @@ class AuthPage extends StatelessWidget {
               controller: passwordController,
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          haserror ? Text("invalid") : SizedBox(),
           const SizedBox(
             height: 100,
           ),
@@ -69,7 +88,8 @@ class AuthPage extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(12))),
               child: const Center(child: Text("Click Here")),
             ),
-          )
+          ),
+          Text(clicked.toString()),
         ],
       ),
     );
